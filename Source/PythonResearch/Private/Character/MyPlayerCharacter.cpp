@@ -3,6 +3,8 @@
 
 #include "Character/MyPlayerCharacter.h"
 #include <EnhancedInputSubsystems.h>
+#include <EnhancedInputComponent.h>
+#include <Data/InputDataConfig.h>
 
 // Sets default values
 AMyPlayerCharacter::AMyPlayerCharacter()
@@ -31,11 +33,49 @@ void AMyPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	
+	RegisterInputMappingContext();
+
+	UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+
+	if (InputActions == nullptr)
+	{
+		return;
+	}
+
+	Input->BindAction(InputActions->Click, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::OnPlayerClick);
+	Input->BindAction(InputActions->MoveForward, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::OnPlayerMoveForward);
+	Input->BindAction(InputActions->MoveBackward, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::OnPlayerMoveBackward);
+	Input->BindAction(InputActions->MoveRight, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::OnPlayerMoveRight);
+	Input->BindAction(InputActions->MoveLeft, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::OnPlayerMoveLeft);
+}
+
+void AMyPlayerCharacter::RegisterInputMappingContext()
+{
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
 
 	Subsystem->ClearAllMappings();
 	Subsystem->AddMappingContext(InputMapping, 0);
+}
+
+void AMyPlayerCharacter::OnPlayerClick()
+{
+}
+
+void AMyPlayerCharacter::OnPlayerMoveForward()
+{
+}
+
+void AMyPlayerCharacter::OnPlayerMoveBackward()
+{
+}
+
+void AMyPlayerCharacter::OnPlayerMoveRight()
+{
+}
+
+void AMyPlayerCharacter::OnPlayerMoveLeft()
+{
 }
 

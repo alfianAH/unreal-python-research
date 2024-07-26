@@ -7,6 +7,7 @@
 #include "MyPlayerCharacter.generated.h"
 
 class UInputMappingContext;
+class UInputDataConfig;
 
 UCLASS()
 class PYTHONRESEARCH_API AMyPlayerCharacter : public ACharacter
@@ -31,4 +32,16 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Character | Input")
 	UInputMappingContext* InputMapping;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Character | Input")
+	UInputDataConfig* InputActions;
+
+private:
+	void RegisterInputMappingContext();
+	
+	void OnPlayerClick();
+	void OnPlayerMoveForward();
+	void OnPlayerMoveBackward();
+	void OnPlayerMoveRight();
+	void OnPlayerMoveLeft();
 };
