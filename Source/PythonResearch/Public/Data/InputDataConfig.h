@@ -21,7 +21,7 @@ public:
 	UInputAction* Click;
 
 	UPROPERTY(EditDefaultsOnly)
-	UInputAction* MoveForeward;
+	UInputAction* MoveForward;
 
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction* MoveBackward;
