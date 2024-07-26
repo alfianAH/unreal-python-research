@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "MyPlayerCharacter.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FPlayerInputEvent)
+
+class AGameEventManager;
 class UInputMappingContext;
 class UInputDataConfig;
 
@@ -29,11 +32,18 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+public:
+	FPlayerInputEvent EventOnPlayerClick;
+	FPlayerInputEvent EventOnPlayerMoveForward;
+	FPlayerInputEvent EventOnPlayerMoveBackward;
+	FPlayerInputEvent EventOnPlayerMoveRight;
+	FPlayerInputEvent EventOnPlayerMoveLeft;
+
 private:
-	UPROPERTY(EditDefaultsOnly, Category = "Player Character | Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Player Character | Inputs")
 	UInputMappingContext* InputMapping;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Player Character | Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Player Character | Inputs")
 	UInputDataConfig* InputActions;
 
 private:

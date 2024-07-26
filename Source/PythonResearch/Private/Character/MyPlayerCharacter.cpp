@@ -61,21 +61,26 @@ void AMyPlayerCharacter::RegisterInputMappingContext()
 
 void AMyPlayerCharacter::OnPlayerClick()
 {
+	EventOnPlayerClick.Broadcast();
 }
 
 void AMyPlayerCharacter::OnPlayerMoveForward()
 {
+	EventOnPlayerMoveForward.Broadcast();
 }
 
 void AMyPlayerCharacter::OnPlayerMoveBackward()
 {
+	EventOnPlayerMoveBackward.Broadcast();
 }
 
 void AMyPlayerCharacter::OnPlayerMoveRight()
 {
+	EventOnPlayerMoveRight.Broadcast();
 }
 
 void AMyPlayerCharacter::OnPlayerMoveLeft()
 {
+	EventOnPlayerMoveLeft.Broadcast();
 }
 
