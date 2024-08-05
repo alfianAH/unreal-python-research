@@ -21,6 +21,17 @@ void AMyPlayerCharacter::BeginPlay()
 	
 }
 
+void AMyPlayerCharacter::EndPlay(EEndPlayReason::Type Reason)
+{
+	Super::EndPlay(Reason);
+	
+	EventOnPlayerClick.Clear();
+	EventOnPlayerMoveForward.Clear();
+	EventOnPlayerMoveBackward.Clear();
+	EventOnPlayerMoveLeft.Clear();
+	EventOnPlayerMoveRight.Clear();
+}
+
 // Called every frame
 void AMyPlayerCharacter::Tick(float DeltaTime)
 {
