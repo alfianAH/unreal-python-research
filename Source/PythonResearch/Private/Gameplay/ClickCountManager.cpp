@@ -3,6 +3,8 @@
 
 #include "Gameplay/ClickCountManager.h"
 #include <Kismet\GameplayStatics.h>
+#include "Blueprint/UserWidget.h"
+//#include <Gameplay\ClickCountViewManager.h>
 #include <Character/MyPlayerCharacter.h>
 
 // Sets default values
@@ -11,6 +13,7 @@ AClickCountManager::AClickCountManager()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//ViewManager = CreateDefaultSubobject<UClickCountViewManager>(TEXT("View Manager"));
 }
 
 // Called when the game starts or when spawned
@@ -18,6 +21,17 @@ void AClickCountManager::BeginPlay()
 {
 	Super::BeginPlay();
 	RegisterEvents();
+}
+
+void AClickCountManager::EndPlay(EEndPlayReason::Type Reason)
+{
+	Super::EndPlay(Reason);
+
+	EventUpdateClickUI.Clear();
+	EventUpdateMoveForwardUI.Clear();
+	EventUpdateMoveBackwardUI.Clear();
+	EventUpdateMoveLeftUI.Clear();
+	EventUpdateMoveRightUI.Clear();
 }
 
 // Called every frame
@@ -53,21 +67,30 @@ void AClickCountManager::RegisterEvents()
 void AClickCountManager::OnPlayerClick()
 {
 	ClickCount++;
+	EventUpdateClickUI.Broadcast(ClickCount);
 }
 
 void AClickCountManager::OnPlayerMoveForward()
 {
+	MoveForwardCount++;
+	EventUpdateMoveForwardUI.Broadcast(MoveForwardCount);
 }
 
 void AClickCountManager::OnPlayerMoveBackward()
 {
+	MoveBackwardCount++;
+	EventUpdateMoveBackwardUI.Broadcast(MoveBackwardCount);
 }
 
 void AClickCountManager::OnPlayerMoveRight()
 {
+	MoveRightCount++;
+	EventUpdateMoveRightUI.Broadcast(MoveRightCount);
 }
 
 void AClickCountManager::OnPlayerMoveLeft()
 {
+	MoveLeftCount++;
+	EventUpdateMoveLeftUI.Broadcast(MoveLeftCount);
 }
 
