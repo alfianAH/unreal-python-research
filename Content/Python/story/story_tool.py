@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+import os
 import unreal
 import aiohttp
 import asyncio
@@ -5,8 +7,8 @@ import asyncio
 
 class StoryTool():
     def __init__(self):
-        self.link_story_collection = ""
-        self.access_key = ""
+        self.link_story_collection = os.getenv("LINK_STORY_COLLECTION")
+        self.access_key = os.getenv("ACCESS_KEY")
 
 
     async def async_get_request(self, url):
@@ -39,5 +41,12 @@ class StoryTool():
 
 
 if __name__ == "__main__":
-    story_tool = StoryTool()
-    story_tool.run()
+    project_dir = unreal.SystemLibrary.get_project_directory()
+    dotenv_path = os.path.join(project_dir, ".env")
+
+    if load_dotenv(dotenv_path=dotenv_path):
+        unreal.log("Success load environment variables")
+        story_tool = StoryTool()
+        story_tool.run()
+    else:
+        unreal.log_error("Couldn't load environment variables")
