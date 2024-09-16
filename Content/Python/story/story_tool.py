@@ -3,6 +3,7 @@ import os
 import unreal
 import aiohttp
 import asyncio
+import threading
 
 
 class StoryTool():
@@ -33,11 +34,18 @@ class StoryTool():
         game_story_method_list: list = story_object["collection"]["item"][0]["item"]
         unreal.log(f"Methods in game story {len(game_story_method_list)}")
 
+    
+    def start_thread_get_link_story(self):
+        thread_get_link_story = threading.Thread(
+            target=asyncio.run, 
+            args=(self.get_link_story(), )
+        )
+        thread_get_link_story.start()
+
 
     def run(self):
-        with unreal.ScopedSlowTask(1, "Running...") as slow_task:
-            slow_task.make_dialog()
-            asyncio.run(self.get_link_story())
+        self.start_thread_get_link_story()
+        unreal.log("Halo")
 
 
 if __name__ == "__main__":
