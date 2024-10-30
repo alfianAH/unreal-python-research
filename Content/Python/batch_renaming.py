@@ -46,7 +46,7 @@ def batch_rename():
 
         is_rename_success = unreal.EditorAssetLibrary.rename_asset(asset_old_path, new_path)
 
-        print(f"Renaming {old_name} to {new_name}...")
+        print(f"Renaming {asset_old_path} to {new_path}...")
         if not is_rename_success:
             unreal.log_error(f"Could not rename: {asset_old_path}")
 
